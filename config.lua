@@ -10,16 +10,16 @@ ac = {
 	versionCheck = true,
 
 	-- Server name shown in the scoreboard header.
-	serverName = 'AC Scoreboard',
+	serverName = 'Oceania RP',
 
 	-- Command name to open the scoreboard UI.
-	commandName = 'scoreboard',
+	commandName = 'score',
 
 	-- Default keybind for the '/scoreboard' command.
 	commandKey = 'DELETE',
 
 	-- Which parts of the scoreboard should be visible (both, groups, players).
-	visibleParts = 'both',
+	visibleParts = 'groups',
 
 	-- On which side of the screen the scoreboard should be (left, right).
 	drawerSide = 'right',
@@ -28,7 +28,7 @@ ac = {
 	groupList = {
 		{
 			label = 'Police',
-			groups = {'police', 'sheriff'}
+			groups = {'police'}
 		},
 		{
 			label = 'EMS',
@@ -36,12 +36,29 @@ ac = {
 			separator = true
 		},
 		{
-			label = 'Taxi',
-			groups = {'taxi'}
+			label = 'Mechanic',
+			groups = {'lscustom'},
+			separator = true
 		},
 		{
-			label = 'Mechanic',
-			groups = {'mechanic', 'lsc', 'bennys'}
-		}
-	}
+			label = 'UwU Cafe',
+			groups = {'uwu'}
+		},
+		{
+			label = 'Vanilla Unicorn',
+			groups = {'vanillaunicorn'}
+		},
+	},
+
+	-- Robbery list.
+	robberyList = {
+		{
+			label = 'Bank',
+			minCops = 0
+		},
+		{
+			label = 'Heist',
+			minCops = 3
+		},
+	},
 }

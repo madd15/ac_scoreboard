@@ -2,19 +2,24 @@ import { createContext, useEffect, useState } from "react";
 import {
   Drawer,
   DrawerBody,
-  DrawerFooter,
+  Center,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
   Button,
   VStack,
+  Image,
+  HStack
 } from "@chakra-ui/react";
 import GroupList from "./body/GroupList";
 import PlayerList from "./body/PlayerList";
-import Footer from "./Footer";
+import RobberyList from "./body/RobList";
+import PlayerCount from "./PlayerCount";
+import ServerId from "./ServerId";
 import { Group } from "../interfaces/group";
 import type { Player } from "../interfaces/player";
 import type { Locale } from "../interfaces/locale";
+import { Robbery } from "../interfaces/robbery";
 import { useNuiEvent } from "../hooks/useNuiEvent";
 import { fetchNui } from "../utils/fetchNui";
 import { isEnvBrowser } from "../utils/misc";
@@ -32,20 +37,21 @@ interface VariableProps {
   playerCount: number;
   maxPlayers: number;
   groups?: Array<Group>;
+  robberies?: Array<Robbery>;
   players?: Player;
 }
 
-interface Props extends InitialProps, VariableProps {}
+interface Props extends InitialProps, VariableProps { }
 
 const mockData: Props = {
   serverName: "Server Name",
-  visibleParts: "both",
+  visibleParts: "groups",
   drawerSide: "right",
   playerCount: 20,
   maxPlayers: 64,
   serverId: 6,
   groups: [
-    { label: "Police", count: 12 },
+    { label: "Police", count: 3 },
     { label: "EMS", count: 7, separator: true },
     { label: "Taxi", count: 5 },
     { label: "Mechanic", count: 0 },
@@ -72,8 +78,13 @@ const mockData: Props = {
     "63": "Josias",
     "93": "Charley",
   },
+  robberies: [
+    { label: "Bank", minCops: 3 },
+    { label: "Heist", minCops: 4 },
+  ],
   locales: {
     ui_group: "Group",
+    ui_robberies: "Robberies",
     ui_count: "Count",
     ui_name: "Name",
     ui_id: "ID",
@@ -133,7 +144,16 @@ const Scoreboard: React.FC = () => {
         >
           <DrawerOverlay />
           <DrawerContent>
-            <DrawerHeader>{data.serverName}</DrawerHeader>
+            <DrawerHeader >
+              <Image src="https://cdn.discordapp.com/attachments/373669492187856896/1158554416471871558/OCE1920x756-2.png" />
+              <Center>
+                <HStack spacing={6}>
+                  <PlayerCount playerCount={data.playerCount}
+                    maxPlayers={data.maxPlayers} />
+                  <ServerId serverId={data.serverId} />
+                </HStack>
+              </Center>
+            </DrawerHeader>
 
             <DrawerBody>
               <VStack spacing={6}>
@@ -148,16 +168,12 @@ const Scoreboard: React.FC = () => {
                     data.visibleParts === "players") && (
                     <PlayerList players={data.players} />
                   )}
+
+                {data.robberies && data.groups &&
+                  (<RobberyList robberies={data.robberies} groups={data.groups} />
+                  )}
               </VStack>
             </DrawerBody>
-
-            <DrawerFooter justifyContent="center">
-              <Footer
-                playerCount={data.playerCount}
-                maxPlayers={data.maxPlayers}
-                serverId={data.serverId}
-              />
-            </DrawerFooter>
           </DrawerContent>
         </Drawer>
       </LocaleContext.Provider>
