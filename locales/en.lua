@@ -3,7 +3,7 @@ return {
 	['ui_count'] = "Count",
 	['ui_name'] = "Name",
 	['ui_id'] = "ID",
-	['ui_robberies'] = "Robberies",
+	['ui_activities'] = "Activities",
 	['ui_player_count'] = "Player count",
 	['ui_your_id'] = "Your server ID",
 	['ui_copied'] = "Copied to clipboard!",

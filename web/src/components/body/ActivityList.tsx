@@ -15,21 +15,24 @@ const ActivityList: React.FC<Props> = (props: Props) => {
   const locales = useContext(LocaleContext);
 
   const Activities = props.activities.map((activity, index) => {
-    let group = props.groups.filter((group) => { if (group.label == activity.groupLabel) { return true } });
+    let group = props.groups.filter((group) => {
+      if (group.label == activity.groupLabel) {
+        return true;
+      } });
+    console.log(activity.label)
+    console.log(activity.minNumber)
     return {
       index: index,
       label: activity.label,
       minNumber: activity.minNumber,
-      groupCount: group[0].count,
+      groupCount: group,
       separator: activity.separator
     };
   });
-
   return (
     <Stack direction="column" spacing="1">
       <SectionHeader left={locales["ui_activities"]} right="" />
       {Activities.map((activity, index) => (
-
         <>
           <Flex
             key={index}
@@ -42,8 +45,8 @@ const ActivityList: React.FC<Props> = (props: Props) => {
             <Text noOfLines={1} casing="uppercase" fontWeight="medium">
               {activity.label}
             </Text>
-            <Tag colorScheme={activity.minNumber > activity.groupCount ? "red" : "green"}>
-              <Icon as={activity.minNumber > activity.groupCount ? FaTimes : FaCheck} boxSize={4} />
+            <Tag colorScheme={activity.minNumber > activity.groupCount[0].count ? "red" : "green"}>
+              <Icon as={activity.minNumber > activity.groupCount[0].count ? FaTimes : FaCheck} boxSize={4} />
             </Tag>
           </Flex>
           {activity.separator && (

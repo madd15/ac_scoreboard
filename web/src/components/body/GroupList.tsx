@@ -14,7 +14,7 @@ const GroupList: React.FC<Props> = (props: Props) => {
   return (
     <Stack direction="column" spacing="1">
       <SectionHeader left={locales["ui_group"]} right={locales["ui_count"]} />
-      {props.groups.filter((group)=>group.display).map((group, index) => (
+      {props.groups.filter((group)=>group.display == true).map((group, index) => (
         <>
           <Flex
             key={index}

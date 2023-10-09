@@ -88,7 +88,7 @@ local function setData()
 	end
 
 	data.groups = getGroups()
-	data.robberies = getActivity()
+	data.activites = getActivity()
 
 	sendNuiMessage("setData", data)
 end
