@@ -12,14 +12,14 @@ import {
 } from "@chakra-ui/react";
 import GroupList from "./body/GroupList";
 import PlayerList from "./body/PlayerList";
-import RobberyList from "./body/RobList";
+import ActivityList from "./body/ActivityList";
 import MainHeader from "./header/MainHeader";
 import PlayerCount from "./header/PlayerCount";
 import ServerId from "./header/ServerId";
 import { Group } from "../interfaces/group";
 import type { Player } from "../interfaces/player";
 import type { Locale } from "../interfaces/locale";
-import { Robbery } from "../interfaces/robbery";
+import { Activity } from "../interfaces/activity";
 import { useNuiEvent } from "../hooks/useNuiEvent";
 import { fetchNui } from "../utils/fetchNui";
 import { isEnvBrowser } from "../utils/misc";
@@ -39,7 +39,7 @@ interface VariableProps {
   playerCount: number;
   maxPlayers: number;
   groups?: Array<Group>;
-  robberies?: Array<Robbery>;
+  activities?: Array<Activity>;
   players?: Player;
 }
 
@@ -55,10 +55,10 @@ const mockData: Props = {
   maxPlayers: 64,
   serverId: 6,
   groups: [
-    { label: "Police", count: 3 },
-    { label: "EMS", count: 7, separator: true },
-    { label: "Taxi", count: 5 },
-    { label: "Mechanic", count: 0 },
+    { label: "Police", count: 2, display: true },
+    { label: "EMS", count: 4, display: true },
+    { label: "UWU", count: 0, display: false },
+    { label: "Vanilla Unicorn", count: 1, display: false },
   ],
   players: {
     "73": "Ingrim",
@@ -82,14 +82,16 @@ const mockData: Props = {
     "63": "Josias",
     "93": "Charley",
   },
-  robberies: [
-    { label: "Banks", minCops: 3 },
-    { label: "Stores", minCops: 1 },
-    { label: "Heists", minCops: 4 },
+  activities: [
+    { label: "UWU Cafe", minNumber: 1, groupLabel: "UWU" },
+    { label: "Vanilla Unicorn", minNumber: 1, groupLabel: "Vanilla Unicorn", separator: true },
+    { label: "Banks", minNumber: 3, groupLabel: "Police" },
+    { label: "Stores", minNumber: 1, groupLabel: "Police" },
+    { label: "Heists", minNumber: 4, groupLabel: "Police" },
   ],
   locales: {
     ui_group: "Group",
-    ui_robberies: "Robberies",
+    ui_activities: "Activities",
     ui_count: "Count",
     ui_name: "Name",
     ui_id: "ID",
@@ -174,8 +176,8 @@ const Scoreboard: React.FC = () => {
                     <PlayerList players={data.players} />
                   )}
 
-                {data.robberies && data.groups &&
-                  (<RobberyList robberies={data.robberies} groups={data.groups} />
+                {data.activities && data.groups &&
+                  (<ActivityList activities={data.activities} groups={data.groups} />
                   )}
               </VStack>
             </DrawerBody>

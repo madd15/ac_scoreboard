@@ -2,22 +2,34 @@ import { useContext } from "react";
 import { LocaleContext } from "../Scoreboard";
 import { Stack, Flex, Text, Tag, Icon } from "@chakra-ui/react";
 import SectionHeader from "./SectionHeader";
-import type { Robbery } from "../../interfaces/robbery";
+import type { Activity } from "../../interfaces/activity";
 import type { Group } from "../../interfaces/group";
 import { FaTimes, FaCheck } from "react-icons/fa";
 
 interface Props {
-  robberies: Array<Robbery>;
+  activities: Array<Activity>;
   groups: Array<Group>;
 }
 
-const RobberyList: React.FC<Props> = (props: Props) => {
+const ActivityList: React.FC<Props> = (props: Props) => {
   const locales = useContext(LocaleContext);
-  const cops = props.groups.filter((group) => { if (group.label == "Police") { return true } });
+
+  const Activities = props.activities.map((activity, index) => {
+    let group = props.groups.filter((group) => { if (group.label == activity.groupLabel) { return true } });
+    return {
+      index: index,
+      label: activity.label,
+      minNumber: activity.minNumber,
+      groupCount: group[0].count,
+      separator: activity.separator
+    };
+  });
+
   return (
     <Stack direction="column" spacing="1">
-      <SectionHeader left={locales["ui_robberies"]} right="" />
-      {props.robberies.map((robbery, index) => (
+      <SectionHeader left={locales["ui_activities"]} right="" />
+      {Activities.map((activity, index) => (
+
         <>
           <Flex
             key={index}
@@ -28,13 +40,13 @@ const RobberyList: React.FC<Props> = (props: Props) => {
             borderRadius={4}
           >
             <Text noOfLines={1} casing="uppercase" fontWeight="medium">
-              {robbery.label}
+              {activity.label}
             </Text>
-            <Tag colorScheme={robbery.minCops > cops[0].count ? "red" : "gray"}>
-              <Icon as={robbery.minCops > cops[0].count ? FaTimes : FaCheck} boxSize={4} />
+            <Tag colorScheme={activity.minNumber > activity.groupCount ? "red" : "green"}>
+              <Icon as={activity.minNumber > activity.groupCount ? FaTimes : FaCheck} boxSize={4} />
             </Tag>
           </Flex>
-          {robbery.separator && (
+          {activity.separator && (
             <div
               style={{
                 margin: "8px 0 4px 0",
@@ -48,4 +60,4 @@ const RobberyList: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default RobberyList;
+export default ActivityList;

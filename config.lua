@@ -34,37 +34,44 @@ ac = {
 	groupList = {
 		{
 			label = 'Police',
-			groups = {'police'}
+			groups = {'police'},
+			display = true
 		},
 		{
 			label = 'EMS',
 			groups = {'ambulance'},
+			display = true,
 			separator = true
 		},
 		{
 			label = 'Mechanic',
 			groups = {'lscustom'},
+			display = true,
 			separator = true
 		},
 		{
 			label = 'UwU Cafe',
-			groups = {'uwu'}
+			groups = {'uwu'},
+			display = true
 		},
 		{
 			label = 'Vanilla Unicorn',
-			groups = {'vanillaunicorn'}
+			groups = {'vanillaunicorn'},
+			display = true
 		},
 	},
 
-	-- Robbery list.
-	robberyList = {
+	-- Activity list. groupLabel MUST appear in the groupList above.
+	activityList = {
 		{
 			label = 'Bank',
-			minCops = 0
+			minNumber = 0,
+			groupLabel = 'Police'
 		},
 		{
 			label = 'Heist',
-			minCops = 3
+			minNumber = 3,
+			groupLabel = 'Police'
 		},
 	},
 }

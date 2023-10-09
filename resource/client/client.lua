@@ -36,6 +36,7 @@ local function getGroups()
 		groupData[#groupData + 1] = {
 			label = group.label,
 			count = count,
+			display = group.display,
 			separator = group.separator or nil,
 		}
 	end
@@ -43,18 +44,19 @@ local function getGroups()
 	return groupData
 end
 
-local function getRobbery()
-	local robberyData = {}
-	for i = 1, #ac.robberyList do
-		local robbery = ac.robberyList[i]
-		robberyData[#robberyData + 1] = {
-			label = robbery.label,
-			minCops = robbery.minCops,
-			separator = robbery.separator or nil,
+local function getActivity()
+	local activityData = {}
+	for i = 1, #ac.activityList do
+		local activity = ac.activityList[i]
+		activityData[#activityData + 1] = {
+			label = activity.label,
+			minNumber = activity.minNumber,
+			groupLabel = activity.groupLabel,
+			separator = activity.separator or nil,
 		}
 	end
 
-	return robberyData
+	return activityData
 end
 
 local function getUiLocales()
@@ -86,7 +88,7 @@ local function setData()
 	end
 
 	data.groups = getGroups()
-	data.robberies = getRobbery()
+	data.robberies = getActivity()
 
 	sendNuiMessage("setData", data)
 end
