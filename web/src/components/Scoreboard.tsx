@@ -8,12 +8,12 @@ import {
   DrawerContent,
   Button,
   VStack,
-  Image,
   HStack
 } from "@chakra-ui/react";
 import GroupList from "./body/GroupList";
 import PlayerList from "./body/PlayerList";
 import RobberyList from "./body/RobList";
+import MainHeader from "./header/MainHeader";
 import PlayerCount from "./header/PlayerCount";
 import ServerId from "./header/ServerId";
 import { Group } from "../interfaces/group";
@@ -24,7 +24,6 @@ import { useNuiEvent } from "../hooks/useNuiEvent";
 import { fetchNui } from "../utils/fetchNui";
 import { isEnvBrowser } from "../utils/misc";
 import { debugData } from "../utils/debugData";
-import MainHeader from "./header/MainHeader";
 
 interface InitialProps {
   serverName?: string;
@@ -84,8 +83,9 @@ const mockData: Props = {
     "93": "Charley",
   },
   robberies: [
-    { label: "Bank", minCops: 3 },
-    { label: "Heist", minCops: 4 },
+    { label: "Banks", minCops: 3 },
+    { label: "Stores", minCops: 1 },
+    { label: "Heists", minCops: 4 },
   ],
   locales: {
     ui_group: "Group",
