@@ -14,8 +14,8 @@ import {
 import GroupList from "./body/GroupList";
 import PlayerList from "./body/PlayerList";
 import RobberyList from "./body/RobList";
-import PlayerCount from "./PlayerCount";
-import ServerId from "./ServerId";
+import PlayerCount from "./header/PlayerCount";
+import ServerId from "./header/ServerId";
 import { Group } from "../interfaces/group";
 import type { Player } from "../interfaces/player";
 import type { Locale } from "../interfaces/locale";
@@ -24,9 +24,12 @@ import { useNuiEvent } from "../hooks/useNuiEvent";
 import { fetchNui } from "../utils/fetchNui";
 import { isEnvBrowser } from "../utils/misc";
 import { debugData } from "../utils/debugData";
+import MainHeader from "./header/MainHeader";
 
 interface InitialProps {
-  serverName: string;
+  serverName?: string;
+  serverImage?: string;
+  visibleImage: boolean;
   visibleParts: "both" | "groups" | "players";
   drawerSide: "left" | "right";
   serverId: number;
@@ -45,6 +48,8 @@ interface Props extends InitialProps, VariableProps { }
 
 const mockData: Props = {
   serverName: "Server Name",
+  serverImage: "https://cdn.discordapp.com/attachments/373669492187856896/1158554416471871558/OCE1920x756-2.png",
+  visibleImage: true,
   visibleParts: "groups",
   drawerSide: "right",
   playerCount: 20,
@@ -145,7 +150,7 @@ const Scoreboard: React.FC = () => {
           <DrawerOverlay />
           <DrawerContent>
             <DrawerHeader >
-              <Image src="https://cdn.discordapp.com/attachments/373669492187856896/1158554416471871558/OCE1920x756-2.png" />
+              <MainHeader visibleImage={data.visibleImage} serverImage={data.serverImage} serverName={data.serverName} />
               <Center>
                 <HStack spacing={6}>
                   <PlayerCount playerCount={data.playerCount}

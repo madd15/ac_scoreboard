@@ -13,7 +13,7 @@ interface Props {
 
 const RobberyList: React.FC<Props> = (props: Props) => {
   const locales = useContext(LocaleContext);
-  const cops = props.groups.filter((group)=>{if(group.label == "Police"){return true}});
+  const cops = props.groups.filter((group) => { if (group.label == "Police") { return true } });
   return (
     <Stack direction="column" spacing="1">
       <SectionHeader left={locales["ui_robberies"]} right="" />

@@ -2,7 +2,7 @@ local opened = false
 local playerId = PlayerId()
 
 local dataPromise = nil
-RegisterNetEvent('ac_scoreboard:receiveData', function(data)
+RegisterNetEvent("ac_scoreboard:receiveData", function(data)
 	if dataPromise then
 		dataPromise:resolve(data)
 		dataPromise = nil
@@ -14,7 +14,7 @@ end)
 local function sendNuiMessage(action, data)
 	SendNUIMessage({
 		action = action,
-		data = data
+		data = data,
 	})
 end
 
@@ -26,17 +26,17 @@ end
 
 local function getGroups()
 	local groupData = {}
-	for i=1, #ac.groupList do
+	for i = 1, #ac.groupList do
 		local group = ac.groupList[i]
 		local count = 0
-		for j=1, #group.groups do
-			count += GlobalState[('%s:count'):format(group.groups[j])] or 0
+		for j = 1, #group.groups do
+			count += GlobalState[("%s:count"):format(group.groups[j])] or 0
 		end
 
 		groupData[#groupData + 1] = {
 			label = group.label,
 			count = count,
-			separator = group.separator or nil
+			separator = group.separator or nil,
 		}
 	end
 
@@ -45,12 +45,12 @@ end
 
 local function getRobbery()
 	local robberyData = {}
-	for i=1, #ac.robberyList do
+	for i = 1, #ac.robberyList do
 		local robbery = ac.robberyList[i]
 		robberyData[#robberyData + 1] = {
 			label = robbery.label,
 			minCops = robbery.minCops,
-			separator = robbery.separator or nil
+			separator = robbery.separator or nil,
 		}
 	end
 
@@ -59,8 +59,8 @@ end
 
 local function getUiLocales()
 	local uiLocales = {}
-	for k,v in pairs(locales) do
-		if k:find('ui_') then
+	for k, v in pairs(locales) do
+		if k:find("ui_") then
 			uiLocales[k] = v
 		end
 	end
@@ -71,12 +71,14 @@ end
 local initialDataSet = false
 local function setData()
 	dataPromise = promise.new()
-	TriggerServerEvent('ac_scoreboard:requestData')
+	TriggerServerEvent("ac_scoreboard:requestData")
 	local data = Citizen.Await(dataPromise)
 
 	if not initialDataSet then
 		initialDataSet = true
 		data.serverName = ac.serverName
+		data.serverImage = ac.serverImage
+		data.visibleImage = ac.visibleImage
 		data.visibleParts = ac.visibleParts
 		data.drawerSide = ac.drawerSide
 		data.serverId = GetPlayerServerId(playerId)
@@ -86,18 +88,18 @@ local function setData()
 	data.groups = getGroups()
 	data.robberies = getRobbery()
 
-	sendNuiMessage('setData', data)
+	sendNuiMessage("setData", data)
 end
 
 if ac.commandKey then
-	RegisterKeyMapping(ac.commandName, locale('keymap_open'), 'keyboard', ac.commandKey)
+	RegisterKeyMapping(ac.commandName, locale("keymap_open"), "keyboard", ac.commandKey)
 end
 
-TriggerEvent('chat:addSuggestion', ('/%s'):format(ac.commandName), locale('command_open'))
+TriggerEvent("chat:addSuggestion", ("/%s"):format(ac.commandName), locale("command_open"))
 RegisterCommand(ac.commandName, function()
 	if opened then
 		handleClose()
-		sendNuiMessage('setVisible', false)
+		sendNuiMessage("setVisible", false)
 		return
 	end
 
@@ -121,10 +123,10 @@ RegisterCommand(ac.commandName, function()
 	SetNuiFocus(true, true)
 	SetNuiFocusKeepInput(true)
 
-	sendNuiMessage('setVisible', true)
+	sendNuiMessage("setVisible", true)
 end, false)
 
-RegisterNUICallback('close', function(_, cb)
+RegisterNUICallback("close", function(_, cb)
 	cb(1)
 	handleClose()
 end)
