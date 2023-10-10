@@ -48,6 +48,7 @@ local function getActivity()
 	local activityData = {}
 	for i = 1, #ac.activityList do
 		local activity = ac.activityList[i]
+
 		activityData[#activityData + 1] = {
 			label = activity.label,
 			minNumber = activity.minNumber,
@@ -88,7 +89,7 @@ local function setData()
 	end
 
 	data.groups = getGroups()
-	data.activites = getActivity()
+	data.activities = getActivity()
 
 	sendNuiMessage("setData", data)
 end
