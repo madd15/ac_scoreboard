@@ -13,10 +13,10 @@ ac = {
 	visibleImage = true,
 
 	-- Server name shown in the scoreboard header.
-	serverName = 'Oceania RP',
+	serverName = 'Haven Roleplay',
 
 	-- Server image shown in the scoreboard header.
-	serverImage = 'https://cdn.discordapp.com/attachments/373669492187856896/1158554416471871558/OCE1920x756-2.png',
+	serverImage = 'https://media.discordapp.net/attachments/1132662807410782318/1187335587406028800/HPRPlogo.png',
 
 	-- Command name to open the scoreboard UI.
 	commandName = 'score',
@@ -34,7 +34,7 @@ ac = {
 	groupList = {
 		{
 			label = 'Police',
-			groups = {'police'},
+			groups = {'police', 'sherriff'},
 			display = true
 		},
 		{
@@ -59,19 +59,5 @@ ac = {
 			groups = {'vanillaunicorn'},
 			display = true
 		},
-	},
-
-	-- Activity list. groupLabel MUST appear in the groupList above.
-	activityList = {
-		{
-			label = 'Bank',
-			minNumber = 0,
-			groupLabel = 'Police'
-		},
-		{
-			label = 'Heist',
-			minNumber = 3,
-			groupLabel = 'Police'
-		},
-	},
+	}
 }

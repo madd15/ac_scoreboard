@@ -26,13 +26,31 @@ end
 
 local function getGroups()
 	local groupData = {}
-	for i = 1, #ac.groupList do
-		local group = ac.groupList[i]
+	local offDutyData = {}
+	for k, v in pairs(ac.groupList) do
+		local group = v
 		local count = 0
-		for j = 1, #group.groups do
-			count += GlobalState[("%s:count"):format(group.groups[j])] or 0
+		for j, d in pairs(group.groups) do
+			count += GlobalState[("%s:count"):format(d)] or 0
 		end
+		if count ~= 0 then
+			groupData[#groupData + 1] = {
+				label = group.label,
+				count = count,
+				display = group.display,
+				separator = group.separator or nil,
+			}
+		else
+			offDutyData[#offDutyData + 1] = {
+				label = group.label,
+				count = count,
+				display = group.display,
+				separator = group.separator or nil,
+			}
+		end
+	end
 
+	for i = 1, #offDutyData do
 		groupData[#groupData + 1] = {
 			label = group.label,
 			count = count,
@@ -42,22 +60,6 @@ local function getGroups()
 	end
 
 	return groupData
-end
-
-local function getActivity()
-	local activityData = {}
-	for i = 1, #ac.activityList do
-		local activity = ac.activityList[i]
-
-		activityData[#activityData + 1] = {
-			label = activity.label,
-			minNumber = activity.minNumber,
-			groupLabel = activity.groupLabel,
-			separator = activity.separator or nil,
-		}
-	end
-
-	return activityData
 end
 
 local function getUiLocales()
@@ -89,7 +91,6 @@ local function setData()
 	end
 
 	data.groups = getGroups()
-	data.activities = getActivity()
 
 	sendNuiMessage("setData", data)
 end

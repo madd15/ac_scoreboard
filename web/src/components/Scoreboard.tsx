@@ -12,10 +12,8 @@ import {
 } from "@chakra-ui/react";
 import GroupList from "./body/GroupList";
 import PlayerList from "./body/PlayerList";
-import ActivityList from "./body/ActivityList";
 import MainHeader from "./header/MainHeader";
 import PlayerCount from "./header/PlayerCount";
-import ServerId from "./header/ServerId";
 import { Group } from "../interfaces/group";
 import type { Player } from "../interfaces/player";
 import type { Locale } from "../interfaces/locale";
@@ -30,6 +28,7 @@ interface InitialProps {
   serverImage?: string;
   visibleImage: boolean;
   visibleParts: "both" | "groups" | "players";
+  visibleMaxPlayers: boolean;
   drawerSide: "left" | "right";
   serverId: number;
   locales: Locale;
@@ -46,19 +45,26 @@ interface VariableProps {
 interface Props extends InitialProps, VariableProps { }
 
 const mockData: Props = {
-  serverName: "Server Name",
-  serverImage: "https://cdn.discordapp.com/attachments/373669492187856896/1158554416471871558/OCE1920x756-2.png",
+  serverName: "Haven Roleplay",
+  serverImage: "https://media.discordapp.net/attachments/1132662807410782318/1187335587406028800/HPRPlogo.png",
   visibleImage: true,
   visibleParts: "groups",
+  visibleMaxPlayers: false,
   drawerSide: "right",
   playerCount: 20,
   maxPlayers: 64,
   serverId: 6,
   groups: [
-    { label: "Police", count: 2, display: true },
-    { label: "EMS", count: 4, display: true },
-    { label: "UWU", count: 0, display: false },
-    { label: "Vanilla Unicorn", count: 1, display: false },
+    { label: "NSW Police Force", icon: "fa-toolbox", count: 2, display: true },
+    { label: "NSW Ambulance", icon: "fa-toolbox", count: 4, display: true },
+    { label: "Exotic Customs", icon: "fa-toolbox", count: 0, display: true },
+    { label: "Luxury Autos", icon: "fa-toolbox", count: 1, display: true },
+    { label: "East Coast Customs", icon: "fa-toolbox", count: 1, display: true },
+    { label: "Full Throttle", icon: "fa-toolbox", count: 1, display: true },
+    { label: "Harley Heaven", icon: "fa-toolbox", count: 1, display: true },
+    { label: "UwU Cat Cafe", icon: "fa-toolbox", count: 1, display: true },
+    { label: "Koi Restaraunt", icon: "fa-toolbox", count: 1, display: true },
+    { label: "Court Staff", icon: "fa-toolbox", count: 1, display: true },
   ],
   players: {
     "73": "Ingrim",
@@ -82,13 +88,6 @@ const mockData: Props = {
     "63": "Josias",
     "93": "Charley",
   },
-  activities: [
-    { label: "UWU Cafe", minNumber: 1, groupLabel: "UWU" },
-    { label: "Vanilla Unicorn", minNumber: 1, groupLabel: "Vanilla Unicorn", separator: true },
-    { label: "Banks", minNumber: 3, groupLabel: "Police" },
-    { label: "Stores", minNumber: 1, groupLabel: "Police" },
-    { label: "Heists", minNumber: 4, groupLabel: "Police" },
-  ],
   locales: {
     ui_group: "Group",
     ui_activities: "Activities",
@@ -156,8 +155,8 @@ const Scoreboard: React.FC = () => {
               <Center>
                 <HStack spacing={6}>
                   <PlayerCount playerCount={data.playerCount}
-                    maxPlayers={data.maxPlayers} />
-                  <ServerId serverId={data.serverId} />
+                    maxPlayers={data.maxPlayers} visibleMaxPlayers={data.visibleMaxPlayers}/>
+                  {/* <ServerId serverId={data.serverId} /> */}
                 </HStack>
               </Center>
             </DrawerHeader>
@@ -174,10 +173,6 @@ const Scoreboard: React.FC = () => {
                   (data.visibleParts === "both" ||
                     data.visibleParts === "players") && (
                     <PlayerList players={data.players} />
-                  )}
-
-                {data.activities && data.groups &&
-                  (<ActivityList activities={data.activities} groups={data.groups} />
                   )}
               </VStack>
             </DrawerBody>

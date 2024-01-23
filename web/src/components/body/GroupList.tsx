@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { LocaleContext } from "../Scoreboard";
-import { Stack, Flex, Text, Tag } from "@chakra-ui/react";
+import { Stack, Flex, Text, Tag, Icon } from "@chakra-ui/react";
 import type { Group } from "../../interfaces/group";
 import SectionHeader from "./SectionHeader";
 
@@ -25,9 +25,9 @@ const GroupList: React.FC<Props> = (props: Props) => {
             borderRadius={4}
           >
             <Text noOfLines={1} casing="uppercase" fontWeight="medium">
-              {group.label}
+            {group.icon}{group.label}
             </Text>
-            <Tag colorScheme={group.count <= 0 ? "red" : "gray"}>
+            <Tag colorScheme={group.count <= 0 ? "red" : "green"}>
               {group.count}
             </Tag>
           </Flex>

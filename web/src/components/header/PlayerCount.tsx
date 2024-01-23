@@ -7,23 +7,27 @@ import {
   Stack,
   Tooltip,
 } from "@chakra-ui/react";
-import { FaUserFriends } from "react-icons/fa";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 interface Props {
   playerCount: number;
   maxPlayers: number;
+  visibleMaxPlayers: boolean;
 }
 
 const PlayerCount: React.FC<Props> = (props: Props) => {
   const locales = useContext(LocaleContext);
-
+  let players = props.playerCount.toString()
+  if (props.visibleMaxPlayers) {
+    players = props.playerCount+' / '+props.maxPlayers
+  }
   return (
     <Stack>
       <Tooltip closeOnClick={false} label={locales["ui_player_count"]}>
         <Tag>
-          <TagLeftIcon as={FaUserFriends} boxSize={4} />
+          <TagLeftIcon as={FaPeopleGroup} boxSize={4} />
           <Text>
-            {props.playerCount} / {props.maxPlayers}
+            {players}
           </Text>
         </Tag>
       </Tooltip>
