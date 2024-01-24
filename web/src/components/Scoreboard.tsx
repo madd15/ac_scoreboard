@@ -14,6 +14,7 @@ import GroupList from "./body/GroupList";
 import PlayerList from "./body/PlayerList";
 import MainHeader from "./header/MainHeader";
 import PlayerCount from "./header/PlayerCount";
+import ServerId from "./header/ServerId";
 import { Group } from "../interfaces/group";
 import type { Player } from "../interfaces/player";
 import type { Locale } from "../interfaces/locale";
@@ -28,6 +29,7 @@ interface InitialProps {
   visibleImage: boolean;
   visibleParts: "both" | "groups" | "players";
   visibleMaxPlayers: boolean;
+  visibleServerID: boolean;
   drawerSide: "left" | "right";
   serverId: number;
   locales: Locale;
@@ -48,6 +50,7 @@ const mockData: Props = {
   visibleImage: true,
   visibleParts: "groups",
   visibleMaxPlayers: false,
+  visibleServerID: false,
   drawerSide: "right",
   playerCount: 20,
   maxPlayers: 64,
@@ -132,8 +135,10 @@ const Scoreboard: React.FC = () => {
               <Center>
                 <HStack spacing={6}>
                   <PlayerCount playerCount={data.playerCount}
-                    maxPlayers={data.maxPlayers} visibleMaxPlayers={data.visibleMaxPlayers}/>
-                  {/* <ServerId serverId={data.serverId} /> */}
+                    maxPlayers={data.maxPlayers} visibleMaxPlayers={data.visibleMaxPlayers} />
+                  {(data.visibleServerID === true) &&
+                    (<ServerId serverId={data.serverId} />
+                    )}
                 </HStack>
               </Center>
             </DrawerHeader>
