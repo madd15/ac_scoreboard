@@ -25,7 +25,12 @@ ac = {
 
         -- Which parts of the scoreboard should be visible (both, groups, players).
         visibleParts = 'groups',
+
+        -- Should max players be visible
         visibleMaxPlayers = false,
+
+        -- Should a players ID be visible to them
+        visibleServerID = false,
 
         -- On which side of the screen the scoreboard should be (left, right).
         drawerSide = 'right',
