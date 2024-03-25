@@ -1,0 +1,42 @@
+name: Live Deployment
+on:
+  pull_request:
+    branches: [ live ]
+    types: [ closed ]
+permissions:
+  contents:  read
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: self-hosted
+    steps:
+      - name: Running Discord Notify
+        uses: stegzilla/discord-notify@v4
+        with: 
+          webhook_url: https://discord.com/api/webhooks/1221763498023850104/PTtnS6d8dB3yZY4mxMyRdRwGMPPM8g_kiTnTsULRmZg5rs-NJoZCrM9WBJ2bW9Or5_wq
+          title: New Deployment for Haven Live
+          message: A new pull request was detected and is being merged to the live server
+          colour: a0a0a0
+      - name: Checkout Code
+        uses: actions/checkout@v4.1.2
+      - name: Pull Code
+        run: | 
+          cd D:\Github\ac_scoreboard1
+          git config --global --add safe.directory D:/Github/ac_scoreboard1
+          git pull origin main
+      - name: Success Discord Notify
+        if: ${{ success() }}
+        uses: stegzilla/discord-notify@v4
+        with: 
+          webhook_url: https://discord.com/api/webhooks/1221763498023850104/PTtnS6d8dB3yZY4mxMyRdRwGMPPM8g_kiTnTsULRmZg5rs-NJoZCrM9WBJ2bW9Or5_wq
+          title: Successfully Deployed to Haven Live
+          message: Pull request successfully deployed
+          colour: 00bf00
+      - name: Error Discord Notify
+        if: ${{ failure() }}
+        uses: stegzilla/discord-notify@v4
+        with: 
+          webhook_url: https://discord.com/api/webhooks/1221763498023850104/PTtnS6d8dB3yZY4mxMyRdRwGMPPM8g_kiTnTsULRmZg5rs-NJoZCrM9WBJ2bW9Or5_wq
+          title: Error Deploying to Haven Live
+          message: Check github actions for details
+          colour: bf0000
