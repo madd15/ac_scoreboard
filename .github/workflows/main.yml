@@ -1,0 +1,18 @@
+on:
+  push:
+    branches: [ main ]
+jobs:
+  devpull:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+      - uses: actions/checkout@v4.1.2
+      - name: Pull Code
+      - run: cd D:\Github\ac_scoreboard
+      - run: git pull origin main
+      - name: Discord Notify
+      - uses: stegzilla/discord-notify@v4
+        with: 
+          webhook_url: https://discord.com/api/webhooks/1221763498023850104/PTtnS6d8dB3yZY4mxMyRdRwGMPPM8g_kiTnTsULRmZg5rs-NJoZCrM9WBJ2bW9Or5_wq
+          title: Dev Push
+          message: Github action has run to push content
