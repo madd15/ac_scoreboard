@@ -5,6 +5,13 @@ jobs:
   devpull:
     runs-on: self-hosted
     steps:
+      - name: Running Discord Notify
+        uses: stegzilla/discord-notify@v4
+        with: 
+          webhook_url: https://discord.com/api/webhooks/1221763498023850104/PTtnS6d8dB3yZY4mxMyRdRwGMPPM8g_kiTnTsULRmZg5rs-NJoZCrM9WBJ2bW9Or5_wq
+          title: New Deployment for Haven Dev
+          message: A new commit was detected and is being pushed to the dev server
+          colour: a0a0a0
       - name: Checkout Code
         uses: actions/checkout@v4.1.2
       - name: Pull Code
@@ -12,9 +19,19 @@ jobs:
           cd D:\Github\ac_scoreboard
           git config --global --add safe.directory D:/Github/ac_scoreboard
           git pull origin main
-      - name: Discord Notify
+      - name: Success Discord Notify
+        if: success()
         uses: stegzilla/discord-notify@v4
         with: 
           webhook_url: https://discord.com/api/webhooks/1221763498023850104/PTtnS6d8dB3yZY4mxMyRdRwGMPPM8g_kiTnTsULRmZg5rs-NJoZCrM9WBJ2bW9Or5_wq
-          title: Dev Push
-          message: Github action has run to push content
+          title: Successfully Deployed to Haven Dev
+          message: Commit successfully deployed
+          colour: 00bf00
+      - name: Error Discord Notify
+        if: failure()
+        uses: stegzilla/discord-notify@v4
+        with: 
+          webhook_url: https://discord.com/api/webhooks/1221763498023850104/PTtnS6d8dB3yZY4mxMyRdRwGMPPM8g_kiTnTsULRmZg5rs-NJoZCrM9WBJ2bW9Or5_wq
+          title: Error Deploying to Haven Dev
+          message: Check github actions for details
+          colour: bf0000
