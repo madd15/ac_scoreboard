@@ -10,6 +10,7 @@ jobs:
       - name: Pull Code
         run: | 
           cd D:\Github\ac_scoreboard
+          git config --global --add safe.directory D:/Github/ac_scoreboard
           git pull origin main
       - name: Discord Notify
         uses: stegzilla/discord-notify@v4
