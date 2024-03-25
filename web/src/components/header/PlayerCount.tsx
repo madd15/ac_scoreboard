@@ -23,14 +23,12 @@ const PlayerCount: React.FC<Props> = (props: Props) => {
   }
   return (
     <Stack>
-      <Tooltip closeOnClick={false} label={locales["ui_player_count"]}>
         <Tag>
           <TagLeftIcon as={FaPeopleGroup} boxSize={4} />
           <Text>
             {players}
           </Text>
         </Tag>
-      </Tooltip>
     </Stack>
   );
 };

@@ -7,7 +7,7 @@ interface Props {
 }
 
 const MainHeader: React.FC<Props> = (props: Props) => {
-    return props.visibleImage ? <Img src={props.serverImage} alt={props.serverName} /> : <Text>{props.serverName}</Text>;
+    return props.visibleImage ? <Img src={props.serverImage} alt={props.serverName} pb={1} maxHeight={150} margin={"auto"}/> : <Text>{props.serverName}</Text>;
 };
 
 export default MainHeader;

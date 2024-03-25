@@ -46,7 +46,7 @@ interface Props extends InitialProps, VariableProps { }
 
 const mockData: Props = {
   serverName: "Haven Roleplay",
-  serverImage: "https://media.discordapp.net/attachments/1132662807410782318/1187335587406028800/HPRPlogo.png",
+  serverImage: "https://cdn.discordapp.com/attachments/1126124445484986463/1207330472741437460/Haven_Normal.png?ex=65f1b61f&is=65df411f&hm=c0294e34ad8a167b1ebf17e43ba3a01c445af45a440af46fd286878d60156044&",
   visibleImage: true,
   visibleParts: "groups",
   visibleMaxPlayers: false,
@@ -58,11 +58,12 @@ const mockData: Props = {
   groups: [
     { label: "Haven Police", icon: "FaBuildingShield", count: 2, display: true },
     { label: "Haven Ambulance", icon: "FaTruckMedical", count: 4, display: true },
-    { label: "Exotic Customs", icon: "FaScrewdriverWrench", count: 0, display: true },
     { label: "Luxury Autos", icon: "FaCarSide", count: 1, display: true },
-    { label: "East Coast Customs", icon: "FaScrewdriverWrench", count: 1, display: true },
-    { label: "Full Throttle", icon: "FaMotorcycle", count: 1, display: true },
     { label: "Harley Heaven", icon: "FaMotorcycle", count: 0, display: true },
+    { label: "Exotic Customs", icon: "FaScrewdriverWrench", count: 0, display: true },
+    { label: "East Coast Customs", icon: "FaScrewdriverWrench", count: 1, display: true },
+    { label: "Paleto Tuners", icon: "FaScrewdriverWrench", count: 1, display: true },
+    { label: "Pit Stop", icon: "FaCarBurst", count: 0, display: true },
     { label: "UwU Cat Cafe", icon: "FaBowlFood", count: 0, display: true },
     { label: "Koi Restaraunt", icon: "FaBowlFood", count: 0, display: true },
     { label: "Court Staff", icon: "FaGavel", count: 1, display: true },
