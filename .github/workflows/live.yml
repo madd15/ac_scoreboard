@@ -13,7 +13,7 @@ jobs:
       - name: Running Discord Notify
         uses: stegzilla/discord-notify@v4
         with: 
-          webhook_url: https://discord.com/api/webhooks/1221763498023850104/PTtnS6d8dB3yZY4mxMyRdRwGMPPM8g_kiTnTsULRmZg5rs-NJoZCrM9WBJ2bW9Or5_wq
+          webhook_url: ${{ secrets.DISCORDHOOK }}
           title: New Deployment for Haven Live
           message: A new pull request was detected and is being merged to the live server
           colour: a0a0a0
@@ -30,7 +30,7 @@ jobs:
         if: ${{ success() }}
         uses: stegzilla/discord-notify@v4
         with: 
-          webhook_url: https://discord.com/api/webhooks/1221763498023850104/PTtnS6d8dB3yZY4mxMyRdRwGMPPM8g_kiTnTsULRmZg5rs-NJoZCrM9WBJ2bW9Or5_wq
+          webhook_url: ${{ secrets.DISCORDHOOK }}
           title: Successfully Deployed to Haven Live
           message: Pull request successfully deployed
           colour: 00bf00
@@ -38,7 +38,7 @@ jobs:
         if: ${{ failure() }}
         uses: stegzilla/discord-notify@v4
         with: 
-          webhook_url: https://discord.com/api/webhooks/1221763498023850104/PTtnS6d8dB3yZY4mxMyRdRwGMPPM8g_kiTnTsULRmZg5rs-NJoZCrM9WBJ2bW9Or5_wq
+          webhook_url: ${{ secrets.DISCORDHOOK }}
           title: Error Deploying to Haven Live
           message: Check github actions for details
           colour: bf0000
