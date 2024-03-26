@@ -8,6 +8,8 @@ permissions:
 jobs:
   if_merged:
     if: github.event.pull_request.merged == true
+    env:
+      GITHUB_CONTEXT: ${{ toJson(github) }}
     runs-on: self-hosted
     steps:
       - name: Running Discord Notify
